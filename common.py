@@ -1,10 +1,13 @@
 def sieve(n):
-	if n < 2:
+	if n<2:
 		return []
-	candidates = range(2, n+1)
-	primes = []
-	while(len(candidates) > 0):
-		next_prime = candidates[0]
-		primes.append(next_prime)
-		candidates = filter(lambda x: x%next_prime != 0, candidates)
-	return primes
+	
+	is_prime = [True] * (n)
+	
+	for i in range(2,n):
+		if not is_prime[i]:
+			continue
+		for j in range(2*i, n, i):
+			is_prime[j] = False
+	
+	return [i for i in range(2,n) if is_prime[i]]
