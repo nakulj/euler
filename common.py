@@ -13,10 +13,18 @@ def sieve(n):
 
 def prod(lst):
 	from operator import mul
-	return reduce(mul, lst)
+	return reduce(mul, lst, 1)
 
 class MaxAccumulator:
 	def __init__(self, initial):
 		self.max_val = initial
 	def update(self, val):
 		self.max_val = max(self.max_val, val)
+
+def cached(fn):
+	cache = {}
+	def caching_fn(*args):
+		if args not in cache:
+			cache[args] = fn(*args)
+		return cache[args]
+	return caching_fn
